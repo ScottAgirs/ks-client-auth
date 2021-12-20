@@ -35,13 +35,14 @@ export default function LogIn() {
           onChange={handleChange}
           name="email"
           value={inputs.email}
-        />
+          />
       </label>
 
       <label htmlFor="password">
         Password
         <input
           onChange={handleChange}
+          name="password"
           value={inputs.password}
           type="password"
         />
