@@ -12,6 +12,10 @@ export default function App({ children }) {
           margin: 0;
           padding: 25px 50px;
         }
+        label {
+          display: flex;
+          flex-direction: column;
+        }
         a {
           color: #22bad9;
         }
