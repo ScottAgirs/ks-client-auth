@@ -5,7 +5,7 @@ import POSTS_Q from '../graphql/query';
 import useForm from '../hooks/useForm';
 
 const CREATE_POST_MUTATION = gql`
-  mutation CREATE_POST_MUTATION(
+  mutation CreatePost(
     $title: String!
   ) {
     createPost(
