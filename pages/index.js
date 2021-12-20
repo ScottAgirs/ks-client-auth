@@ -1,34 +1,33 @@
+import { useQuery } from '@apollo/client'
+
 import App from '../components/App'
-import InfoBox from '../components/InfoBox'
-import Header from '../components/Header'
-import Submit from '../components/Submit'
-import PostList, {
-  ALL_POSTS_QUERY,
-  allPostsQueryVars,
-} from '../components/PostList'
-import { initializeApollo, addApolloState } from '../lib/apolloClient'
+import CreatePost from '../components/CreatePost';
+import LogIn from '../components/LogIn';
+import SignUp from '../components/SignUp';
 
-const IndexPage = () => (
-  <App>
-    <Header />
-    <InfoBox>ℹ️ This page shows how to use SSG with Apollo.</InfoBox>
-    <Submit />
-    <PostList />
-  </App>
-)
+import POSTS_Q from '../graphql/query'
 
-export async function getStaticProps() {
-  const apolloClient = initializeApollo()
+const IndexPage = () => {
+  const { data, loading } = useQuery(POSTS_Q);
 
-  await apolloClient.query({
-    query: ALL_POSTS_QUERY,
-    variables: allPostsQueryVars,
-  })
+  return(
+    <App>
+      {!loading && (
+        <div>
+          <h2>Posts</h2>
+          <ul>
+            {data.posts.map(p => (
+              <li key={p.id}>{p.title}</li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-  return addApolloState(apolloClient, {
-    props: {},
-    revalidate: 1,
-  })
-}
+      <SignUp />
+      <LogIn />
+
+      <CreatePost />
+    </App>
+)}
 
 export default IndexPage
